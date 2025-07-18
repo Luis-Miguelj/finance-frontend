@@ -26,7 +26,7 @@ export function Login() {
   const [isSuccess, setSuccess] = useState<boolean>(false)
   const [successMessage, setSuccessMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [progress, setProgress] = useState<number>(15)
+  const [progress, setProgress] = useState<number>(33)
   const navigate = useNavigate()
   const {
     register,
@@ -47,14 +47,15 @@ export function Login() {
         body: JSON.stringify(data),
       })
       setLoading(true)
-      setProgress(40)
       if (!response.ok) {
         setLoading(false)
         setError(true)
         throw new Error('Erro ao fazer login')
       }
-      setProgress(70)
       const result = await response.json()
+      setTimeout(() => {
+        setProgress(70)
+      }, 1000)
 
       if (result) {
         setProgress(100)
