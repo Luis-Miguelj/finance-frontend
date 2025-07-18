@@ -26,7 +26,7 @@ export function Login() {
   const [isSuccess, setSuccess] = useState<boolean>(false)
   const [successMessage, setSuccessMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [progress, setProgress] = useState<number>(0)
+  const [progress, setProgress] = useState<number>(15)
   const navigate = useNavigate()
   const {
     register,
@@ -55,17 +55,16 @@ export function Login() {
       }
       setProgress(70)
       const result = await response.json()
-      setTimeout(() => {
+
+      if (result) {
         setProgress(100)
-        if (result) {
-          setSuccess(true)
-          setSuccessMessage(result.message)
-          window.localStorage.setItem('token', result.token)
-          reset()
-          console.log('Login bem-sucedido')
-          navigate('/dashboard')
-        }
-      }, 1000)
+        setSuccess(true)
+        setSuccessMessage(result.message)
+        window.localStorage.setItem('token', result.token)
+        reset()
+        console.log('Login bem-sucedido')
+        navigate('/dashboard')
+      }
     } catch (error) {
       console.error('Erro ao fazer login:', error)
     }
