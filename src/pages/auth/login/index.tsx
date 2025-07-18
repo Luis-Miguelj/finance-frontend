@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
+import { Progress } from '@/components/ui/progress'
 import { Eye, EyeOff } from 'lucide-react'
 
 import { Link, useNavigate } from 'react-router'
@@ -24,6 +25,8 @@ export function Login() {
   const [isError, setError] = useState<boolean>(false)
   const [isSuccess, setSuccess] = useState<boolean>(false)
   const [successMessage, setSuccessMessage] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
+  const [progress, setProgress] = useState<number>(0)
   const navigate = useNavigate()
   const {
     register,
@@ -43,20 +46,46 @@ export function Login() {
         },
         body: JSON.stringify(data),
       })
+      setLoading(true)
+      setProgress(40)
       if (!response.ok) {
+        setLoading(false)
         setError(true)
         throw new Error('Erro ao fazer login')
       }
+      setProgress(70)
       const result = await response.json()
-      setSuccess(true)
-      setSuccessMessage(result.message)
-      window.localStorage.setItem('token', result.token)
-      reset()
-      console.log('Login bem-sucedido')
-      navigate('/dashboard')
+      setTimeout(() => {
+        setProgress(100)
+        if (result) {
+          setSuccess(true)
+          setSuccessMessage(result.message)
+          window.localStorage.setItem('token', result.token)
+          reset()
+          console.log('Login bem-sucedido')
+          navigate('/dashboard')
+        }
+      }, 1000)
     } catch (error) {
       console.error('Erro ao fazer login:', error)
     }
+  }
+
+  if (loading) {
+    return (
+      <Container>
+        <div className="flex items-center justify-center h-screen">
+          <div className="flex flex-col gap-1 bg-zinc-950 backdrop-blur-2xl p-5 rounded-md shadow-lg text-center">
+            <h1 className="text-2xl text-white font-black">Carregando...</h1>
+            <h2 className="text-md text-zinc-300 font-medium">
+              Aguarde um momento, o sistema está conferindo suas credenciais
+              para iniciar a sessão.
+            </h2>
+            <Progress className="w-full" value={progress} />
+          </div>
+        </div>
+      </Container>
+    )
   }
 
   return (
