@@ -54,7 +54,7 @@ export function Dashboard() {
 
   return (
     <div className="flex flex-col gap-10 min-h-full overflow-hidden scroll-auto text-zinc-950">
-      <div className="flex xs:flex-col gap-5">
+      <div className="flex max-md:flex-col gap-5">
         <Card
           className={`w-full ${(dataLucro?.ano.lucroAnual as number) < 0 ? 'bg-red-50' : 'bg-blue-50'} text-zinc-950`}
         >

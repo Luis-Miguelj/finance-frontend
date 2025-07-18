@@ -80,6 +80,7 @@ export function Transacoes() {
               items={data || []}
               filteredItemsType={selectedType}
               filteredItemsCategories={selectedCategory}
+              categories={responseCategories || []}
             />
           </Suspense>
         </CardContent>

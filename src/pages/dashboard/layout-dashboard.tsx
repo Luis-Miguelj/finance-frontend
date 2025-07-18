@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Outlet } from 'react-router'
 
 import { Suspense } from 'react'
+import { env } from '@/types/env'
 
 interface User {
   id: string
@@ -19,7 +20,7 @@ export function LayoutDashboard() {
       if (!token) {
         throw new Error('Token not found')
       }
-      const response = await axios.get('http://localhost:3333/user', {
+      const response = await axios.get(`${env.VITE_URL_API}/user`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `${token}`,
@@ -37,11 +38,13 @@ export function LayoutDashboard() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <Menu name={data?.name} createdAt={data?.createdAt as Date} />
-      <div className="w-5/6 min-h-screen p-10 bg-white text-zinc-950">
-        <Outlet />
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex min-h-screen">
+        <Menu name={data?.name} createdAt={data?.createdAt as Date} />
+        <div className="w-5/6 min-h-screen max-md:p-4 p-10 bg-white text-zinc-950">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </Suspense>
   )
 }

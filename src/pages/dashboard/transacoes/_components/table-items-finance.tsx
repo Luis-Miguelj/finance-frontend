@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
+import { CircleX } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -14,6 +16,13 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from '@/components/ui/pagination'
+import { deleteFinance } from '@/services/delete-finance'
+import { EditFinance } from './edit-finance'
+
+interface Category {
+  id: string
+  name: string
+}
 
 interface TableItemsFinanceProps {
   items: {
@@ -25,14 +34,18 @@ interface TableItemsFinanceProps {
   }[]
   filteredItemsType?: string
   filteredItemsCategories?: string
+  categories?: Category[]
 }
+
 export function TableItemsFinance({
   items,
   filteredItemsType,
   filteredItemsCategories,
+  categories,
 }: TableItemsFinanceProps) {
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
+  const queryClient = useQueryClient()
 
   const filteredItems = items.filter(item => {
     const typeFilter =
@@ -82,6 +95,19 @@ export function TableItemsFinance({
                 {new Intl.DateTimeFormat('pt-BR').format(
                   new Date(item.createdAt)
                 )}
+              </TableCell>
+              <TableCell className="flex gap-2">
+                <EditFinance categories={categories || []} id={item.id} />
+                |
+                <CircleX
+                  className="hover:text-red-700 transition-all duration-300 cursor-pointer"
+                  onClick={async () => {
+                    await deleteFinance(item.id)
+                    await queryClient.invalidateQueries({
+                      queryKey: ['transacoes', 'finance'],
+                    })
+                  }}
+                />
               </TableCell>
             </TableRow>
           ))}
