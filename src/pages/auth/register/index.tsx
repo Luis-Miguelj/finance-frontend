@@ -219,7 +219,7 @@ export function Register() {
               <DialogClose
                 onClick={() => {
                   setOpenAlert(false)
-                  navigate('/')
+                  navigate('/login')
                 }}
                 className="bg-blue-600 text-white hover:bg-blue-500 transition-all duration-300 py-1.5 px-2 cursor-pointer rounded-md"
               >
