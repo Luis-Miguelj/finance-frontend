@@ -41,6 +41,7 @@ export function Grafico({ data }: GraficoProps) {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              lang="pt-BR"
               tickFormatter={value => value.slice(0, 3)}
             />
             <ChartTooltip

@@ -76,6 +76,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
         className="flex flex-col gap-5"
       >
         <div className="w-full flex flex-col gap-2">
+          <span className="text-sm font-medium">Categorias:</span>
           <Controller
             name="categories"
             control={control}
@@ -106,6 +107,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
           </div>
         </div>
         <div className="w-full flex flex-col gap-2">
+          <span className="text-sm font-medium">Tipo:</span>
           <Controller
             name="type"
             control={control}
@@ -130,7 +132,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
           )}
         </div>
         <div className="w-full flex flex-col gap-2">
-          <span>Valor:</span>
+          <span className="text-sm font-medium">Valor:</span>
           <Controller
             name="value"
             control={control}

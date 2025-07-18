@@ -13,8 +13,17 @@ interface EditFinanceProps {
     name: string
   }[]
   id: string
+  category: string
+  type: string
+  value: number
 }
-export function EditFinance({ categories, id }: EditFinanceProps) {
+export function EditFinance({
+  categories,
+  id,
+  category,
+  type,
+  value,
+}: EditFinanceProps) {
   return (
     <Dialog>
       <DialogTrigger>
@@ -27,7 +36,13 @@ export function EditFinance({ categories, id }: EditFinanceProps) {
         <DialogDescription>
           Aqui você pode editar as suas transações.
         </DialogDescription>
-        <FormEditFinance categories={categories} id={id} />
+        <FormEditFinance
+          categories={categories}
+          id={id}
+          category={category}
+          type={type}
+          value={value}
+        />
       </DialogContent>
     </Dialog>
   )

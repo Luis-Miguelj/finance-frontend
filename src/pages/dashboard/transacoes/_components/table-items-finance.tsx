@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
-import { CircleX } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -16,8 +14,9 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from '@/components/ui/pagination'
-import { deleteFinance } from '@/services/delete-finance'
 import { EditFinance } from './edit-finance'
+import { formatToUpperCase } from '@/functions/formatUpercase'
+import { DeleteFinance } from './delete-finance'
 
 interface Category {
   id: string
@@ -45,7 +44,6 @@ export function TableItemsFinance({
 }: TableItemsFinanceProps) {
   const [page, setPage] = useState(1)
   const itemsPerPage = 10
-  const queryClient = useQueryClient()
 
   const filteredItems = items.filter(item => {
     const typeFilter =
@@ -90,24 +88,22 @@ export function TableItemsFinance({
                   currency: 'BRL',
                 }).format(item.value)}
               </TableCell>
-              <TableCell>{item.type}</TableCell>
+              <TableCell>{formatToUpperCase(item.type)}</TableCell>
               <TableCell>
                 {new Intl.DateTimeFormat('pt-BR').format(
                   new Date(item.createdAt)
                 )}
               </TableCell>
               <TableCell className="flex gap-2">
-                <EditFinance categories={categories || []} id={item.id} />
-                |
-                <CircleX
-                  className="hover:text-red-700 transition-all duration-300 cursor-pointer"
-                  onClick={async () => {
-                    await deleteFinance(item.id)
-                    await queryClient.invalidateQueries({
-                      queryKey: ['transacoes', 'finance'],
-                    })
-                  }}
+                <EditFinance
+                  categories={categories || []}
+                  id={item.id}
+                  category={item.category}
+                  type={item.type}
+                  value={item.value}
                 />
+                |
+                <DeleteFinance id={item.id} />
               </TableCell>
             </TableRow>
           ))}

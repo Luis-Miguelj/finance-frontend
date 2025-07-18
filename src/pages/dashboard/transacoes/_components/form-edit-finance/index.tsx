@@ -12,16 +12,26 @@ import {
 } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 import { editFinance } from '@/services/edit-finance'
+import { formatCurrency } from '@/functions/formatCurrency'
 
 interface FormEditFinanceProps {
   id: string
+  category: string
+  type: string
+  value: number
   categories: {
     id: string
     name: string
   }[]
 }
 
-export function FormEditFinance({ categories, id }: FormEditFinanceProps) {
+export function FormEditFinance({
+  categories,
+  id,
+  category,
+  type,
+  value,
+}: FormEditFinanceProps) {
   const {
     control,
     handleSubmit,
@@ -54,9 +64,11 @@ export function FormEditFinance({ categories, id }: FormEditFinanceProps) {
         className="flex flex-col gap-5"
       >
         <div className="w-full flex flex-col gap-2">
+          <span className="text-sm font-medium">Categoria:</span>
           <Controller
             name="categories"
             control={control}
+            defaultValue={category}
             render={({ field }) => (
               <Select
                 onValueChange={field.onChange}
@@ -83,8 +95,10 @@ export function FormEditFinance({ categories, id }: FormEditFinanceProps) {
           </div>
         </div>
         <div className="w-full flex flex-col gap-2">
+          <span className="text-sm font-medium">Tipo:</span>
           <Controller
             name="type"
+            defaultValue={type === 'entrada' ? 'e' : 's'}
             control={control}
             render={({ field }) => (
               <Select
@@ -107,12 +121,13 @@ export function FormEditFinance({ categories, id }: FormEditFinanceProps) {
           )}
         </div>
         <div className="w-full flex flex-col gap-2">
-          <span>Valor:</span>
+          <span className="text-sm font-medium">Valor:</span>
           <Controller
             name="value"
             control={control}
             render={({ field }) => (
               <Cleave
+                value={formatCurrency(value)}
                 options={{
                   numeral: true,
                   numeralDecimalMark: ',',
