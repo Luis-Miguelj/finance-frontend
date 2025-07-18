@@ -48,8 +48,8 @@ export function Grafico({ data }: GraficoProps) {
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
             />
-            <Bar dataKey="entrada" fill="var(--color-entradas)" radius={10} />
-            <Bar dataKey="saida" fill="var(--color-saidas)" radius={10} />
+            <Bar dataKey="Entrada" fill="var(--color-entradas)" radius={10} />
+            <Bar dataKey="Saida" fill="var(--color-saidas)" radius={10} />
           </BarChart>
         </ChartContainer>
       </CardContent>
