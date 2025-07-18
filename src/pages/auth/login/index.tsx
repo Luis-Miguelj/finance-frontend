@@ -8,6 +8,7 @@ import {
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Progress } from '@/components/ui/progress'
 import { Eye, EyeOff } from 'lucide-react'
+import { useMutation } from '@tanstack/react-query'
 
 import { Link, useNavigate } from 'react-router'
 
@@ -16,16 +17,13 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { userSchema, type TypeUser } from '@/types/auth'
-import { env } from '@/types/env'
 
 import { Container } from '../_component/container'
+import { loginUser } from '@/services/login-service'
 
 export function Login() {
   const [showPassword, setShowPassword] = useState<string>('password')
-  const [isError, setError] = useState<boolean>(false)
-  const [isSuccess, setSuccess] = useState<boolean>(false)
   const [successMessage, setSuccessMessage] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
   const [progress, setProgress] = useState<number>(33)
   const navigate = useNavigate()
   const {
@@ -37,31 +35,32 @@ export function Login() {
     resolver: zodResolver(userSchema),
   })
 
+  const { mutateAsync, isPending, isError, isSuccess } = useMutation<
+    { message: string; token: string },
+    unknown,
+    TypeUser
+  >({
+    mutationFn: async (data: TypeUser) => {
+      const response = await loginUser(data)
+      setProgress(50)
+      return {
+        token: response.token,
+        message: response.message,
+      }
+    },
+  })
+
   async function handleLogin(data: TypeUser) {
     try {
-      const response = await fetch(`${env.VITE_URL_API}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-      setLoading(true)
-      if (!response.ok) {
-        setLoading(false)
-        setError(true)
-        throw new Error('Erro ao fazer login')
-      }
-      const result = await response.json()
+      const response = await mutateAsync(data)
       setTimeout(() => {
         setProgress(70)
       }, 1000)
 
-      if (result) {
+      if (response) {
         setProgress(100)
-        setSuccess(true)
-        setSuccessMessage(result.message)
-        window.localStorage.setItem('token', result.token)
+        setSuccessMessage(response.message)
+        window.localStorage.setItem('token', response.token)
         reset()
         console.log('Login bem-sucedido')
         navigate('/dashboard')
@@ -71,7 +70,7 @@ export function Login() {
     }
   }
 
-  if (loading) {
+  if (isPending) {
     return (
       <Container>
         <div className="flex items-center justify-center h-screen">
