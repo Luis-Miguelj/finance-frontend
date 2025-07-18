@@ -9,6 +9,7 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Progress } from '@/components/ui/progress'
 import { Eye, EyeOff } from 'lucide-react'
 import { useMutation } from '@tanstack/react-query'
+import { useEffect } from 'react'
 
 import { Link, useNavigate } from 'react-router'
 
@@ -42,7 +43,6 @@ export function Login() {
   >({
     mutationFn: async (data: TypeUser) => {
       const response = await loginUser(data)
-      setProgress(50)
       return {
         token: response.token,
         message: response.message,
@@ -53,22 +53,31 @@ export function Login() {
   async function handleLogin(data: TypeUser) {
     try {
       const response = await mutateAsync(data)
-      setTimeout(() => {
-        setProgress(70)
-      }, 1000)
 
       if (response) {
-        setProgress(100)
         setSuccessMessage(response.message)
         window.localStorage.setItem('token', response.token)
         reset()
         console.log('Login bem-sucedido')
-        navigate('/dashboard')
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error)
     }
   }
+
+  useEffect(() => {
+    if (isPending && !isSuccess) {
+      setProgress(25)
+      const timeout1 = setTimeout(() => setProgress(50), 500)
+      const timeout2 = setTimeout(() => setProgress(75), 1000)
+
+      return () => {
+        clearTimeout(timeout1)
+        clearTimeout(timeout2)
+        navigate('/dashboard')
+      }
+    }
+  }, [isPending, isSuccess, navigate])
 
   if (isPending) {
     return (
