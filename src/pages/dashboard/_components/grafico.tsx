@@ -33,7 +33,10 @@ export function Grafico({ data }: GraficoProps) {
         <CardTitle>Resumo de gastos</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[400px] w-full">
+        <ChartContainer
+          config={chartConfig}
+          className="max-h-[400px] md:max-h-80 w-full"
+        >
           <BarChart data={data}>
             <CartesianGrid vertical={false} />
             <XAxis

@@ -22,7 +22,7 @@ export function CreateTransactionsPage() {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <Card className="md:w-1/2 w-full md:h-[60vh] h-full">
+      <Card className="md:w-1/2 w-full md:max-h-[70vh] h-full">
         <CardContent>
           <CardHeader>
             <CardTitle className="text-2xl">
