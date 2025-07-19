@@ -98,7 +98,7 @@ export function Login() {
 
   return (
     <Container>
-      <Card className="w-1/3 h-full p-5 bg-zinc-950 text-white border-zinc-900 shadow-lg">
+      <Card className="w-1/3 max-md:w-full h-full p-5 bg-zinc-950 text-white border-zinc-900 shadow-lg">
         <CardContent className="flex flex-col gap-8">
           <CardHeader>
             <CardTitle className="text-xl md:text-4xl font-black">

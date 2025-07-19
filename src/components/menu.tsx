@@ -5,7 +5,13 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { format } from 'date-fns'
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Menu as DropdownMenuAction } from 'lucide-react'
 import { Link } from 'react-router'
 import { Button } from './ui/button'
 
@@ -18,6 +24,46 @@ export function Menu({ name, createdAt }: User) {
   function handleLogout() {
     localStorage.removeItem('token')
     location.reload()
+  }
+
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth < 768) {
+      return (
+        <header className="w-full h-20 shadow-md flex items-center px-5 justify-between">
+          <div className="flex flex-col gap-1">
+            <h1 className="text-lg font-black text-white">{name}</h1>
+            <h2 className="text-xs font-semibold text-zinc-400">
+              Usuário criado em {format(new Date(createdAt), 'dd/MM/yyyy')}
+            </h2>
+          </div>
+          <div>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-white">
+                <DropdownMenuAction />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-60  flex flex-col py-4 px-2 bg-zinc-950 text-white border-zinc-800 shadow-md mr-4">
+                <DropdownMenuItem className="font-medium">
+                  <Link to={'/dashboard'}>Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-medium">
+                  <Link to={'/dashboard/transacoes'}>Transações</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-medium">
+                  <Link to={'/dashboard/criar-transacao'}>Criar transação</Link>
+                </DropdownMenuItem>
+                <div className="border-t border-zinc-800 my-2"></div>
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="font-medium"
+                >
+                  Sair
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </header>
+      )
+    }
   }
 
   return (

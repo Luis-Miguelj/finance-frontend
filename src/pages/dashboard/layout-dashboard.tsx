@@ -39,9 +39,9 @@ export function LayoutDashboard() {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className="flex min-h-screen">
+      <div className="flex max-md:flex-col min-h-screen">
         <Menu name={data?.name} createdAt={data?.createdAt as Date} />
-        <div className="w-5/6 min-h-screen max-md:p-4 p-10 bg-white text-zinc-950">
+        <div className="w-5/6 max-md:w-full min-h-screen max-md:p-4 p-10 bg-white text-zinc-950">
           <Outlet />
         </div>
       </div>
