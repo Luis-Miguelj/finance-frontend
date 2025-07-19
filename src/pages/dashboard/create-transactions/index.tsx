@@ -20,9 +20,13 @@ export function CreateTransactionsPage() {
     placeholderData: keepPreviousData,
   })
 
+  if (typeof window !== 'undefined') {
+    console.log(window.innerWidth)
+  }
+
   return (
     <div className="h-full flex justify-center items-center">
-      <Card className="md:w-1/2 w-full md:max-h-[70vh] h-full">
+      <Card className="md:w-1/2 w-full max-xl:h-full xl:min-h-[60vh]">
         <CardContent>
           <CardHeader>
             <CardTitle className="text-2xl">
