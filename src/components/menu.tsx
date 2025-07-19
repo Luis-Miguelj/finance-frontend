@@ -41,20 +41,20 @@ export function Menu({ name, createdAt }: User) {
               <DropdownMenuTrigger className="text-white">
                 <DropdownMenuAction />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-60  flex flex-col py-4 px-2 bg-zinc-950 text-white border-zinc-800 shadow-md mr-4">
-                <DropdownMenuItem className="font-medium">
+              <DropdownMenuContent className="w-60 flex flex-col py-4 px-2 bg-zinc-950 text-white border-zinc-800 shadow-md mr-4">
+                <DropdownMenuItem className="font-medium text-lg my-0.5">
                   <Link to={'/dashboard'}>Dashboard</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-medium">
+                <DropdownMenuItem className="font-medium text-lg my-0.5">
                   <Link to={'/dashboard/transacoes'}>Transações</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-medium">
+                <DropdownMenuItem className="font-medium text-lg my-0.5">
                   <Link to={'/dashboard/criar-transacao'}>Criar transação</Link>
                 </DropdownMenuItem>
                 <div className="border-t border-zinc-800 my-2"></div>
                 <DropdownMenuItem
                   onClick={handleLogout}
-                  className="font-medium"
+                  className="font-medium text-lg my-0.5"
                 >
                   Sair
                 </DropdownMenuItem>
