@@ -56,7 +56,7 @@ export function Dashboard() {
     if (window.innerWidth < 768) {
       return (
         <>
-          <div className="flex flex-col gap-10 min-h-full overflow-hidden scroll-auto text-zinc-950">
+          <div className="flex flex-col gap-4 min-h-full overflow-hidden scroll-auto text-zinc-950">
             <div className="flex max-md:flex-col gap-5 max-md:gap-2.5 md:h-32">
               <div className="flex max-md:gap-2.5 ">
                 <Card className="w-full bg-zinc-400 text-white">

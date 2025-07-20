@@ -44,36 +44,44 @@ export function Transacoes() {
   return (
     <div className="flex flex-col gap-10 min-h-full overflow-hidden scroll-auto text-zinc-950">
       <Card className="w-full">
-        <CardContent className="flex flex-col gap-4">
-          <Suspense fallback={<h1>Carregando...</h1>}>
-            <div className="flex justify-between gap-20">
+        <CardContent className="flex flex-col max-md:h-[70vh] gap-6">
+          <Suspense fallback={<h1 className="text-zinc-950">Carregando...</h1>}>
+            <div className="flex max-md:flex-col max-md:gap-5 xl:justify-between gap-20">
               <h1 className="text-2xl font-semibold">Transações</h1>
-              <div className="flex gap-4 w-full">
-                <Select onValueChange={e => setSelectedType(e)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione um tipo de transação" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas as transações</SelectItem>
-                    <SelectItem value="entrada">Entradas</SelectItem>
-                    <SelectItem value="saida">Saidas</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Select onValueChange={e => setSelectedCategory(e)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione uma categoria" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all-categories">
-                      Todas as categorias
-                    </SelectItem>
-                    {responseCategories?.map(category => (
-                      <SelectItem key={category.id} value={category.name}>
-                        {category.name}
+              <div className="flex max-md:flex-col gap-4 w-full">
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-sm font-medium">
+                    Tipo de transação:
+                  </span>
+                  <Select onValueChange={e => setSelectedType(e)}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione um tipo de transação" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todas as transações</SelectItem>
+                      <SelectItem value="entrada">Entradas</SelectItem>
+                      <SelectItem value="saida">Saidas</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <span className="text-sm font-medium">Categorias:</span>
+                  <Select onValueChange={e => setSelectedCategory(e)}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione uma categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all-categories">
+                        Todas as categorias
                       </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                      {responseCategories?.map(category => (
+                        <SelectItem key={category.id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
             <TableItemsFinance

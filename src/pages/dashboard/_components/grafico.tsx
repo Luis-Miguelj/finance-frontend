@@ -35,7 +35,7 @@ export function Grafico({ data }: GraficoProps) {
       <CardContent>
         <ChartContainer
           config={chartConfig}
-          className="w-full xl:h-[40vh] 2xl:h-[440px]"
+          className="w-full max-md:h-[18vh] xl:h-[40vh] 2xl:h-[440px]"
         >
           <BarChart data={data}>
             <CartesianGrid vertical={false} />

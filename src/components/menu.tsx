@@ -42,15 +42,21 @@ export function Menu({ name, createdAt }: User) {
                 <DropdownMenuAction />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-60 flex flex-col py-4 px-2 bg-zinc-950 text-white border-zinc-800 shadow-md mr-4">
-                <DropdownMenuItem className="font-medium text-lg my-0.5">
-                  <Link to={'/dashboard'}>Dashboard</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="font-medium text-lg my-0.5">
-                  <Link to={'/dashboard/transacoes'}>Transações</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="font-medium text-lg my-0.5">
-                  <Link to={'/dashboard/criar-transacao'}>Criar transação</Link>
-                </DropdownMenuItem>
+                <Link to={'/dashboard'}>
+                  <DropdownMenuItem className="font-medium text-lg my-0.5">
+                    Dashboard
+                  </DropdownMenuItem>
+                </Link>
+                <Link to={'/dashboard/transacoes'}>
+                  <DropdownMenuItem className="font-medium text-lg my-0.5">
+                    Transações
+                  </DropdownMenuItem>
+                </Link>
+                <Link to={'/dashboard/criar-transacao'}>
+                  <DropdownMenuItem className="font-medium text-lg my-0.5">
+                    Criar transação
+                  </DropdownMenuItem>
+                </Link>
                 <div className="border-t border-zinc-800 my-2"></div>
                 <DropdownMenuItem
                   onClick={handleLogout}
