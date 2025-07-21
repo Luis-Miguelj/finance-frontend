@@ -22,7 +22,7 @@ import { useForm, Controller } from 'react-hook-form'
 import type { CategoriesFormData } from '@/types/categories'
 import { type TypeFinance, financeSchema } from '@/types/finance'
 
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from 'react-router'
 import { useState } from 'react'
 
@@ -34,6 +34,8 @@ interface FormTransacoesProps {
 }
 
 export function FormTransacoes({ categories }: FormTransacoesProps) {
+  const queryClient = useQueryClient()
+
   const {
     formState: { errors },
     handleSubmit,
@@ -52,7 +54,9 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
     onSuccess: () => {
       setDialogOpen(true)
       setMessage('Cadastro realizado com sucesso!')
-      reset()
+      queryClient.invalidateQueries({
+        queryKey: ['finance', 'dashboard', 'transacoes'],
+      })
     },
     onError: () => {
       setDialogOpen(true)
@@ -80,11 +84,12 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
           <Controller
             name="categories"
             control={control}
+            defaultValue=""
             render={({ field }) => (
               <Select
                 onValueChange={field.onChange}
                 value={field.value}
-                defaultValue=""
+                defaultValue={field.value}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione uma categoria" />
@@ -111,11 +116,12 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
           <Controller
             name="type"
             control={control}
+            defaultValue=""
             render={({ field }) => (
               <Select
                 onValueChange={field.onChange}
                 value={field.value}
-                defaultValue=""
+                defaultValue={field.value}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione o tipo" />
@@ -135,6 +141,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
           <span className="text-sm font-medium">Valor:</span>
           <Controller
             name="value"
+            defaultValue={undefined}
             control={control}
             render={({ field }) => (
               <Cleave
@@ -157,6 +164,8 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
                   console.log('raw:', raw) // exibe o valor bruto sem formatação
                   field.onChange(Number(raw)) // envia valor final como "5.05"
                 }}
+                value={field.value}
+                defaultValue={field.value}
                 placeholder="R$ 0,00"
                 className="p-1.5 border rounded-md"
               />
