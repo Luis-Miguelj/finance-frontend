@@ -1,7 +1,7 @@
 import { Suspense, useState, useEffect, lazy } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
 
 import { useDashboardData } from '@/hooks/useDashboardData'
+import { Loading } from '@/components/loading'
 
 const DashboardMobile = lazy(() => import('./_components/dashboard-mobile'))
 const DashboardDesktop = lazy(() => import('./_components/dashboard-desktop'))
@@ -10,14 +10,12 @@ export function Dashboard() {
   const dashboard = useDashboardData()
   const [isMobile, setIsMobile] = useState(false)
 
-  console.log('passou aqui')
-
   useEffect(() => {
     setIsMobile(window.innerWidth < 768)
   }, [])
 
   return (
-    <Suspense fallback={<Skeleton />}>
+    <Suspense fallback={<Loading />}>
       {isMobile ? (
         <DashboardMobile
           dataDashboard={dashboard.dataDashboard}

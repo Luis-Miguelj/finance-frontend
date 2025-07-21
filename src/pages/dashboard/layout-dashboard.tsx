@@ -1,10 +1,10 @@
-import { Menu } from '@/components/menu'
-import { useQuery } from '@tanstack/react-query'
+import { Menu } from '@/components/menu/menu'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { Outlet } from 'react-router'
 
-import { Suspense } from 'react'
 import { env } from '@/types/env'
+import { Skeleton } from '@/components/ui/skeleton'
 
 interface User {
   id: string
@@ -31,20 +31,19 @@ export function LayoutDashboard() {
       }
       return response.data
     },
+    placeholderData: keepPreviousData,
   })
 
   if (isLoading) {
-    return <Suspense fallback={<div>Loading...</div>} />
+    return <Skeleton className="bg-white" />
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="flex max-md:flex-col min-h-screen">
-        <Menu name={data?.name} createdAt={data?.createdAt as Date} />
-        <div className="w-5/6 max-md:w-full min-h-screen max-md:p-4 p-10 bg-white text-zinc-950">
-          <Outlet />
-        </div>
+    <div className="flex max-md:flex-col min-h-screen">
+      <Menu name={data?.name} createdAt={data?.createdAt as Date} />
+      <div className="w-5/6 max-md:w-full min-h-screen max-md:p-4 p-10 bg-white text-zinc-950">
+        <Outlet />
       </div>
-    </Suspense>
+    </div>
   )
 }

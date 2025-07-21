@@ -53,7 +53,13 @@ const router = createBrowserRouter([
   },
 ])
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+    },
+  },
+})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

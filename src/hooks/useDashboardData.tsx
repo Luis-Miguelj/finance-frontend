@@ -20,20 +20,20 @@ interface Finance {
 }
 
 export function useDashboardData() {
-  const { data: dataFinance, isLoading: loadingFinance } = useQuery<Finance>({
+  const { data: dataFinance } = useQuery<Finance>({
     queryKey: ['finance'],
     queryFn: getFinance,
     retry: false,
     placeholderData: keepPreviousData,
   })
 
-  const { data: dataLucro, isLoading: loadingLucro } = useQuery<Lucro>({
+  const { data: dataLucro } = useQuery<Lucro>({
     queryKey: ['lucro', 'finance'],
     queryFn: getLucro,
     placeholderData: keepPreviousData,
   })
 
-  const { data: dataDashboard, isLoading: loadingDashboard } = useQuery({
+  const { data: dataDashboard } = useQuery({
     queryKey: ['dashboard', 'finance'],
     queryFn: getDashboard,
     placeholderData: keepPreviousData,
@@ -41,10 +41,7 @@ export function useDashboardData() {
 
   return {
     dataFinance,
-    loadingFinance,
     dataLucro,
-    loadingLucro,
     dataDashboard,
-    loadingDashboard,
   }
 }
