@@ -96,7 +96,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map(category => (
-                    <SelectItem key={category.id} value={category.name}>
+                    <SelectItem key={category.id} value={category.id}>
                       {category.name}
                     </SelectItem>
                   ))}

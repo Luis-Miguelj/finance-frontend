@@ -10,7 +10,7 @@ export async function createFinance(items: TypeFinance) {
   const response = await axios.post(
     `${env.VITE_URL_API}/finance`,
     {
-      category: items.categories,
+      categoryId: items.categories,
       ...items,
     },
     {
