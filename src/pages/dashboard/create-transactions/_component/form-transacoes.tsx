@@ -49,13 +49,13 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
   const router = useNavigate()
 
   const { mutateAsync, isError } = useMutation({
-    mutationKey: ['finance', 'dashboard', 'transacoes'],
+    mutationKey: ['finance', 'dashboard', 'transacoes', 'lucro'],
     mutationFn: async (items: TypeFinance) => await createFinance(items),
     onSuccess: () => {
       setDialogOpen(true)
       setMessage('Cadastro realizado com sucesso!')
       queryClient.invalidateQueries({
-        queryKey: ['finance', 'dashboard', 'transacoes'],
+        queryKey: ['finance', 'dashboard', 'transacoes', 'lucro'],
       })
     },
     onError: () => {
@@ -86,11 +86,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <Select
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
+              <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione uma categoria" />
                 </SelectTrigger>
@@ -118,11 +114,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <Select
-                onValueChange={field.onChange}
-                value={field.value}
-                defaultValue={field.value}
-              >
+              <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione o tipo" />
                 </SelectTrigger>
@@ -141,7 +133,7 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
           <span className="text-sm font-medium">Valor:</span>
           <Controller
             name="value"
-            defaultValue={undefined}
+            defaultValue={0}
             control={control}
             render={({ field }) => (
               <Cleave
@@ -164,8 +156,6 @@ export function FormTransacoes({ categories }: FormTransacoesProps) {
                   console.log('raw:', raw) // exibe o valor bruto sem formatação
                   field.onChange(Number(raw)) // envia valor final como "5.05"
                 }}
-                value={field.value}
-                defaultValue={field.value}
                 placeholder="R$ 0,00"
                 className="p-1.5 border rounded-md"
               />
