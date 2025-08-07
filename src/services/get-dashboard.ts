@@ -18,6 +18,8 @@ export async function getDashboard() {
       throw new Error('No data received from the server')
     }
 
+    console.log('Dashboard data fetched successfully:', response.data)
+
     return response.data
   } catch (error) {
     console.error('Error fetching dashboard data:', error)

@@ -11,6 +11,7 @@ import {
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { createCategories } from '@/services/create-categories'
+import { DialogClose } from '@radix-ui/react-dialog'
 
 export function ModalCreateCategories() {
   const queryClient = useQueryClient()
@@ -52,7 +53,7 @@ export function ModalCreateCategories() {
             Adicione uma nova categoria para suas transações.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4">
           <input
             type="text"
             className="p-2 outline-none border-2 border-zinc-400 rounded-md focus:border-zinc-900 transition-colors duration-300 placeholder:text-sm placeholder:font-medium"
@@ -60,9 +61,14 @@ export function ModalCreateCategories() {
             onChange={e => setCategoryName(e.target.value)}
             value={categoryName}
           />
-          <Button onClick={() => handleCreateCategories(categoryName)}>
-            Criar categoria
-          </Button>
+          <div className="flex flex-col gap-2.5">
+            <Button onClick={() => handleCreateCategories(categoryName)}>
+              Criar categoria
+            </Button>
+            <DialogClose className="font-medium rounded-md bg-zinc-300 p-1.5">
+              Fechar
+            </DialogClose>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

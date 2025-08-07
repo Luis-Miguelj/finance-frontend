@@ -12,7 +12,7 @@ export async function loginUser(
       },
     })
 
-    if (response.status !== 200) {
+    if (response.status === 401) {
       throw new Error('Erro ao fazer login')
     }
 

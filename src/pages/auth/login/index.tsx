@@ -43,6 +43,10 @@ export function Login() {
   >({
     mutationFn: async (data: TypeUser) => {
       const response = await loginUser(data)
+      if (!response) {
+        console.log('Entrou aqui')
+        throw new Error('Login failed')
+      }
       return {
         token: response.token,
         message: response.message,
