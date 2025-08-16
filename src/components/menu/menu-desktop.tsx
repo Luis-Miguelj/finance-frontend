@@ -4,7 +4,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { Button } from '../ui/button'
 import { Link } from 'react-router'
 import { format } from 'date-fns'
 
@@ -29,7 +28,7 @@ export function MenuDesktop({ name, createdAt, handleLogout }: MenuProps) {
             <AccordionTrigger className="text-base font-medium">
               Menu
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="flex flex-col gap-2">
               <ul className="flex flex-col gap-2">
                 <Link
                   to={'/dashboard'}
@@ -49,23 +48,45 @@ export function MenuDesktop({ name, createdAt, handleLogout }: MenuProps) {
                 >
                   Criar transação
                 </Link>
+                <Link
+                  to={'/dashboard/categorias'}
+                  className="text-sm font-medium p-2 rounded hover:bg-zinc-800 transition-all duration-200"
+                >
+                  Categorias
+                </Link>
               </ul>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="item-2">
-            <AccordionTrigger className="text-sm">
-              Configurações
+            <AccordionTrigger className="text-base font-medium">
+              Relatórios
             </AccordionTrigger>
-            <AccordionContent>
-              <h1>Lista de configurações</h1>
+            <AccordionContent className="flex flex-col gap-2">
+              <ul className="flex flex-col gap-2">
+                <Link
+                  to={'/dashboard/relatorios'}
+                  className="text-sm font-medium p-2 rounded hover:bg-zinc-800 transition-all duration-200"
+                >
+                  Relatório de transações
+                </Link>
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger className="text-base font-medium">
+              Sair da conta
+            </AccordionTrigger>
+            <AccordionContent className="flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="text-sm text-start bg-zinc-900 font-medium p-2 rounded hover:bg-zinc-800 transition-all duration-200 cursor-pointer"
+              >
+                Sair
+              </button>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
-      </div>
-      <div>
-        <Button variant={'default'} className="px-6" onClick={handleLogout}>
-          Sair
-        </Button>
       </div>
     </div>
   )

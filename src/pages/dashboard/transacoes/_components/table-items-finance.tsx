@@ -80,11 +80,12 @@ export function TableItemsFinance({
     <>
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="font-semibold">
             <TableCell>Categoria</TableCell>
             <TableCell>Valor</TableCell>
             <TableCell>Tipo</TableCell>
             <TableCell>Data</TableCell>
+            <TableCell>Opções</TableCell>
           </TableRow>
         </TableHeader>
         <TableBody>

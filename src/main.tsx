@@ -19,6 +19,8 @@ import { Transacoes } from '@/pages/dashboard/transacoes'
 import { middleware } from '@/middleware'
 import { CreateTransactionsPage } from './pages/dashboard/create-transactions'
 import { Home } from '@/pages/home'
+import { Categorias } from './pages/dashboard/categorias'
+import { GlobalLoading } from './components/global-loading'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,7 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: <LayoutDashboard />,
     loader: middleware,
+
     children: [
       {
         path: '',
@@ -53,6 +56,10 @@ const router = createBrowserRouter([
         path: 'criar-transacao',
         element: <CreateTransactionsPage />,
       },
+      {
+        path: 'categorias',
+        element: <Categorias />,
+      },
     ],
   },
 ])
@@ -63,16 +70,12 @@ const queryClient = new QueryClient({
       placeholderData: keepPreviousData,
     },
   },
-  // defaultOptions: {
-  //   queries: {
-  //     staleTime: 1000 * 60 * 5, // 5 minutes
-  //   },
-  // },
 })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
+      <GlobalLoading />
       <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>

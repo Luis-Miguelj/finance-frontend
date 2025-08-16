@@ -62,10 +62,13 @@ export function ModalCreateCategories() {
             value={categoryName}
           />
           <div className="flex flex-col gap-2.5">
-            <Button onClick={() => handleCreateCategories(categoryName)}>
+            <Button
+              onClick={() => handleCreateCategories(categoryName)}
+              className="cursor-pointer"
+            >
               Criar categoria
             </Button>
-            <DialogClose className="font-medium rounded-md bg-zinc-300 p-1.5">
+            <DialogClose className="bg-white text-zinc-900 hover:bg-zinc-300 border transition-all duration-300 p-1.5 rounded-md cursor-pointer">
               Fechar
             </DialogClose>
           </div>

@@ -47,7 +47,7 @@ export function Transacoes() {
                   <SelectItem value="all-categories">
                     Todas as categorias
                   </SelectItem>
-                  {transacoes.responseCategories?.map(category => (
+                  {transacoes.categories.map(category => (
                     <SelectItem key={category.id} value={category.name}>
                       {category.name}
                     </SelectItem>
@@ -61,7 +61,7 @@ export function Transacoes() {
           items={transacoes.transacoes || []}
           filteredItemsType={transacoes.selectedType}
           filteredItemsCategories={transacoes.selectedCategory}
-          categories={transacoes.responseCategories || []}
+          categories={transacoes.categories || []}
         />
       </CardContent>
     </Card>
