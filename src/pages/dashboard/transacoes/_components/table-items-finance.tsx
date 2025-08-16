@@ -121,6 +121,7 @@ export function TableItemsFinance({
       </Table>
       <Pagination className="mt-4">
         <PaginationContent>
+          {/* Botão anterior */}
           <PaginationItem>
             <PaginationPrevious
               href="#"
@@ -129,22 +130,40 @@ export function TableItemsFinance({
                 setPage(p => Math.max(1, p - 1))
               }}
               aria-disabled={page === 1}
+              className={page === 1 ? 'opacity-50 pointer-events-none' : ''}
             />
           </PaginationItem>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <PaginationItem key={`page-${i + 1}`}>
-              <PaginationLink
-                href="#"
-                isActive={page === i + 1}
-                onClick={e => {
-                  e.preventDefault()
-                  setPage(i + 1)
-                }}
-              >
-                {i + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .filter(p => {
+              // mostra sempre primeira, última, atual e vizinhos
+              return p === 1 || p === totalPages || Math.abs(p - page) <= 1
+            })
+            .map((p, i, arr) => {
+              const prev = arr[i - 1]
+
+              return (
+                <PaginationItem key={`page-${p}`}>
+                  {/* adiciona "..." se pular página */}
+                  {prev && p - prev > 1 ? (
+                    <span className="px-2">...</span>
+                  ) : null}
+
+                  <PaginationLink
+                    href="#"
+                    isActive={page === p}
+                    onClick={e => {
+                      e.preventDefault()
+                      setPage(p)
+                    }}
+                  >
+                    {p}
+                  </PaginationLink>
+                </PaginationItem>
+              )
+            })}
+
+          {/* Botão próximo */}
           <PaginationItem>
             <PaginationNext
               href="#"
@@ -153,6 +172,9 @@ export function TableItemsFinance({
                 setPage(p => Math.min(totalPages, p + 1))
               }}
               aria-disabled={page === totalPages}
+              className={
+                page === totalPages ? 'opacity-50 pointer-events-none' : ''
+              }
             />
           </PaginationItem>
         </PaginationContent>
