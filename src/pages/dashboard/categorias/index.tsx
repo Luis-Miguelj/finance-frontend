@@ -52,15 +52,6 @@ export function Categorias() {
                   </TableCell>
                 </TableRow>
               ))}
-              {transacoes.categories.map(categoria => (
-                <TableRow key={categoria.id} className="flex">
-                  <TableCell className="w-full">{categoria.name}</TableCell>
-                  <TableCell className="flex gap-2 w-full">
-                    <EditCategories name={categoria.name} id={categoria.id} />|
-                    <DeleteCategories id={categoria.id} />
-                  </TableCell>
-                </TableRow>
-              ))}
             </TableBody>
           </Table>
         </CardContent>
