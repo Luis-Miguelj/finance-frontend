@@ -36,15 +36,26 @@ export function Categorias() {
         </CardHeader>
         <CardContent>
           <Table>
-            <TableBody className="flex flex-col">
-              <TableRow className="flex justify-around">
-                <TableCell className="font-semibold">Categorias</TableCell>
-                <TableCell className="font-semibold">Opções</TableCell>
+            <TableBody className="flex flex-col max-h-[550px]">
+              <TableRow className="flex justify-baseline">
+                <TableCell className="font-semibold w-full">
+                  Categorias
+                </TableCell>
+                <TableCell className="font-semibold w-full">Opções</TableCell>
               </TableRow>
               {transacoes.categories.map(categoria => (
-                <TableRow key={categoria.id} className="flex justify-around">
-                  <TableCell>{categoria.name}</TableCell>
-                  <TableCell className="flex gap-2">
+                <TableRow key={categoria.id} className="flex">
+                  <TableCell className="w-full">{categoria.name}</TableCell>
+                  <TableCell className="flex gap-2 w-full">
+                    <EditCategories name={categoria.name} id={categoria.id} />|
+                    <DeleteCategories id={categoria.id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+              {transacoes.categories.map(categoria => (
+                <TableRow key={categoria.id} className="flex">
+                  <TableCell className="w-full">{categoria.name}</TableCell>
+                  <TableCell className="flex gap-2 w-full">
                     <EditCategories name={categoria.name} id={categoria.id} />|
                     <DeleteCategories id={categoria.id} />
                   </TableCell>

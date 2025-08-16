@@ -21,6 +21,7 @@ import { CreateTransactionsPage } from './pages/dashboard/create-transactions'
 import { Home } from '@/pages/home'
 import { Categorias } from './pages/dashboard/categorias'
 import { GlobalLoading } from './components/global-loading'
+import { Relatorios } from './pages/dashboard/relatorios'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: 'categorias',
         element: <Categorias />,
+      },
+      {
+        path: 'relatorios',
+        element: <Relatorios />,
       },
     ],
   },
