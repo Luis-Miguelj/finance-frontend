@@ -136,8 +136,8 @@ export function TableItemsFinance({
 
           {Array.from({ length: totalPages }, (_, i) => i + 1)
             .filter(p => {
-              // mostra sempre primeira, última, atual e vizinhos
-              return p === 1 || p === totalPages || Math.abs(p - page) <= 1
+              // mostra apenas a atual + vizinhas
+              return Math.abs(p - page) <= 1
             })
             .map((p, i, arr) => {
               const prev = arr[i - 1]
