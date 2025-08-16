@@ -43,6 +43,17 @@ export function MenuMobile({ name, createdAt, handleLogout }: MenuProps) {
                 Criar transação
               </DropdownMenuItem>
             </Link>
+            <Link to={'/dashboard/categorias'}>
+              <DropdownMenuItem className="font-medium text-lg my-0.5">
+                Categorias
+              </DropdownMenuItem>
+            </Link>
+            <div className="border-t border-zinc-800 my-2"></div>
+            <Link to={'/dashboard/relatorios'}>
+              <DropdownMenuItem className="font-medium text-lg my-0.5">
+                Relatórios
+              </DropdownMenuItem>
+            </Link>
             <div className="border-t border-zinc-800 my-2"></div>
             <DropdownMenuItem
               onClick={handleLogout}
